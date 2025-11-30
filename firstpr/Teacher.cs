@@ -23,6 +23,6 @@ public class Teacher
 
     public override string ToString()
     {
-        return "Id: "+ Id + ", Name: " + Name + ", DateOfBirth:" + DateOfBirth +",Email:" + Email + ",PhonNumber:" + PhoneNumber;
+        return "Id: "+ Id + ", Name: " + Name + ", DateOfBirth:" + DateOfBirth +",Email:" + Email + ",PhoneNumber:" + PhoneNumber;
     }
 }

@@ -32,7 +32,7 @@ public class StudentService
     
         }
     }
-    public void DeletById(string Id)
+    public void DeleteById(string Id)
     {
         Data.Remove(Id);
     }
