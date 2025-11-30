@@ -1,39 +1,79 @@
 public class CourseService
 {
-    private Dictionary<string, Course > Data=new Dictionary<string, Course >();
+    private readonly Dictionary<string, Course> data = new Dictionary<string, Course>();
+    private readonly StudentService studentService;
+    private readonly TeacherService teacherService;
 
-    public void Add(Course course)
+    public CourseService(StudentService studentService, TeacherService teacherService)
     {
-        if (!Data.ContainsKey(course.Id))
-        {
-            Data.Add(course.Id,course);
-        }
-    }
-
-    public Course GetById(string Id)
-    {
-        if (Data.ContainsKey(Id))
-        {
-            return Data[Id];
-    
-        }
-        return null;
-    }
-     public List<Course> GetAll()
-    {
-        return Data.Values.ToList();
+        this.studentService = studentService;
+        this.teacherService = teacherService;
     }
 
-    public void Update(Course course)
+    public bool Add(Course course)
     {
-        if (Data.ContainsKey(course.Id))
-        {
-            Data [course.Id]=course;
-    
-        }
+        // Check if course exists
+        if (data.ContainsKey(course.Id))
+            return false;
+
+        // Validate teacher
+        if (teacherService.GetById(course.TeacherId) == null)
+            return false;
+
+        // Validate students
+        if (!ValidateStudents(course.StudentIds))
+            return false;
+
+        // Add course
+        data.Add(course.Id, course);
+        return true;
     }
-    public void DeletById(string Id)
+
+    public Course GetById(string id)
     {
-        Data.Remove(Id);
+        data.TryGetValue(id, out Course course);
+        return course;
+    }
+
+    public List<Course> GetAll()
+    {
+        return data.Values.ToList();
+    }
+
+    public bool Update(Course course)
+    {
+        // Must already exist
+        if (!data.ContainsKey(course.Id))
+            return false;
+
+        // Validate teacher
+        if (teacherService.GetById(course.TeacherId) == null)
+            return false;
+
+        // Validate students
+        if (!ValidateStudents(course.StudentIds))
+            return false;
+
+        data[course.Id] = course;
+        return true;
+    }
+
+    public bool DeleteById(string id)
+    {
+        return data.Remove(id);
+    }
+
+    private bool ValidateStudents(List<string> studentIds)
+    {
+        if (studentIds == null || studentIds.Count == 0)
+            return true;
+
+        foreach (var studentId in studentIds)
+        {
+            if (studentService.GetById(studentId) == null)
+                return false;
+        }
+
+        return true;
     }
 }
