@@ -23,7 +23,7 @@ public class CourseService
         {
             return;
         }
-        if (!DoStudentExist(course.studentiIds))
+        if (!DoStudentsExist(course.StudentIds))
         {
             return;
         }
@@ -57,7 +57,7 @@ public class CourseService
         {
             return;
         }
-        if (!DoStudentExist(course.studentiIds))
+        if (!DoStudentsExist(course.StudentIds))
         {
             return;
         }
@@ -70,7 +70,7 @@ public class CourseService
         Data.Remove(Id);
     }
 
-    private bool DoStudentExist(List<string> studeniIds)
+    private bool DoStudentsExist(List<string> studentIds)
     {
         return true;
     }
