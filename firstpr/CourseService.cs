@@ -72,8 +72,26 @@ public class CourseService
 
     private bool DoStudentsExist(List<string> studentIds)
     {
+
+        for (int i = 0; i < studentIds.Count; i++)
+        {
+
+            string id = studentIds[i];
+
+            Student student = StudentService.GetById(id);
+
+            if (student==null)
+            {
+
+                return false;
+            }
+
+        }
         return true;
     }
+
+
+
 
 
 
