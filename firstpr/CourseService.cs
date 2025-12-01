@@ -47,7 +47,7 @@ public class CourseService
 
     public void Update(Course course)
     {
-        if (Data.ContainsKey(course.Id))
+        if (!Data.ContainsKey(course.Id))
 
         {
             return;
