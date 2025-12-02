@@ -59,8 +59,6 @@ class Program
                     continue;
 
                 }
-                foreach (Student student in allStudents)
-                {
                     foreach (Student student in allStudents)
                     {
                         Console.WriteLine($"{student.Id} - {student.Name} - {student.DateOfBirth} - {student.Email} - {student.PhoneNumber}");
@@ -105,4 +103,4 @@ class Program
 
         }
     }
-}
+
