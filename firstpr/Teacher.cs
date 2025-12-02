@@ -10,6 +10,11 @@ public class Teacher
 
     public string PhoneNumber { get; set; }
 
+    public Teacher()
+    {
+    }
+
+
 
 
     public Teacher(string Id, string Name, DateOnly DateOfBirth, string Email, string PhoneNumber)

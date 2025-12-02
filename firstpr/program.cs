@@ -124,6 +124,186 @@ class Program
                 Console.WriteLine("Student updated.");
                 continue;
             }
+            // ========================= TEACHER ADD ================================
+            if (target.Equals("teacher", StringComparison.OrdinalIgnoreCase) &&
+                action.Equals("add", StringComparison.OrdinalIgnoreCase))
+            {
+                if (parts.Length < 7)
+                {
+                    Console.WriteLine("Not enough parameters for teacher add!");
+                    continue;
+                }
+
+                if (!DateOnly.TryParse(parts[4], out DateOnly dob))
+                {
+                    Console.WriteLine("Invalid date format!");
+                    continue;
+                }
+
+                Teacher teacher = new Teacher()
+                {
+                    Id = parts[2],
+                    Name = parts[3],
+                    DateOfBirth = dob,
+                    Email = parts[5],
+                    PhoneNumber = parts[6]
+                };
+
+                teacherService.Add(teacher);
+                Console.WriteLine("Teacher added.");
+                continue;
+            }
+
+            // ========================= TEACHER GETALL ================================
+            if (target.Equals("teacher", StringComparison.OrdinalIgnoreCase) &&
+                action.Equals("getall", StringComparison.OrdinalIgnoreCase))
+            {
+                List<Teacher> allTeachers = teacherService.GetAll();
+
+                if (allTeachers.Count == 0)
+                {
+                    Console.WriteLine("No teachers found!");
+                    continue;
+                }
+
+                foreach (var teacher in allTeachers)
+                {
+                    Console.WriteLine($"{teacher.Id} - {teacher.Name} - {teacher.DateOfBirth} - {teacher.Email} - {teacher.PhoneNumber}");
+                }
+
+                continue;
+            }
+
+            // ========================= TEACHER REMOVE ================================
+            if (target.Equals("teacher", StringComparison.OrdinalIgnoreCase) &&
+                action.Equals("remove", StringComparison.OrdinalIgnoreCase))
+            {
+                if (parts.Length < 3)
+                {
+                    Console.WriteLine("Not enough parameters for teacher remove!");
+                    continue;
+                }
+
+                string id = parts[2];
+                teacherService.DeleteById(id);
+                Console.WriteLine("Teacher removed.");
+                continue;
+            }
+
+            // ========================= TEACHER UPDATE ================================
+            if (target.Equals("teacher", StringComparison.OrdinalIgnoreCase) &&
+                action.Equals("update", StringComparison.OrdinalIgnoreCase))
+            {
+                if (parts.Length < 7)
+                {
+                    Console.WriteLine("Not enough parameters for teacher update!");
+                    continue;
+                }
+
+                if (!DateOnly.TryParse(parts[4], out DateOnly dob))
+                {
+                    Console.WriteLine("Invalid date format!");
+                    continue;
+                }
+
+                Teacher updatedTeacher = new Teacher()
+                {
+                    Id = parts[2],
+                    Name = parts[3],
+                    DateOfBirth = dob,
+                    Email = parts[5],
+                    PhoneNumber = parts[6]
+                };
+
+                teacherService.Update(updatedTeacher);
+                Console.WriteLine("Teacher updated.");
+                continue;
+
+           }
+                       // ========================= COURSE ADD ================================
+            if (target.Equals("course", StringComparison.OrdinalIgnoreCase) &&
+                action.Equals("add", StringComparison.OrdinalIgnoreCase))
+            {
+                if (parts.Length < 5)
+                {
+                    Console.WriteLine("Not enough parameters for course add!");
+                    continue;
+                }
+
+                Course course = new Course(parts[2], parts[3], parts[4], new List<string>());
+
+                courseService.Add(course);
+                Console.WriteLine("Course added.");
+                continue;
+            }
+
+            // ========================= COURSE GETALL ================================
+            if (target.Equals("course", StringComparison.OrdinalIgnoreCase) &&
+                action.Equals("getall", StringComparison.OrdinalIgnoreCase))
+            {
+                List<Course> allCourses = courseService.GetAll();
+
+                if (allCourses.Count == 0)
+                {
+                    Console.WriteLine("No courses found!");
+                    continue;
+                }
+
+                foreach (var course in allCourses)
+                {
+                    Console.WriteLine($"{course.Id} - {course.Name} - {course.TeacherId} - {course.StudentIds.Count}");
+                }
+
+                continue;
+            }
+
+            // ========================= COURSE REMOVE ================================
+            if (target.Equals("course", StringComparison.OrdinalIgnoreCase) &&
+                action.Equals("remove", StringComparison.OrdinalIgnoreCase))
+            {
+                if (parts.Length < 3)
+                {
+                    Console.WriteLine("Not enough parameters for course remove!");
+                    continue;
+                }
+
+                string id = parts[2];
+                courseService.DeletById(id);
+                Console.WriteLine("Course removed.");
+                continue;
+            }
+
+            // ========================= COURSE UPDATE ================================
+            if (target.Equals("course", StringComparison.OrdinalIgnoreCase) &&
+                action.Equals("update", StringComparison.OrdinalIgnoreCase))
+            {
+                if (parts.Length < 5)
+                {
+                    Console.WriteLine("Not enough parameters for course update!");
+                    continue;
+                }
+
+                Course? oldCourse = courseService.GetById(parts[2]);
+                if (oldCourse == null)
+                {
+                    Console.WriteLine("Course not found!");
+                    continue;
+                }
+
+                Course updatedCourse = new Course()
+                {
+                    Id = parts[2],
+                    Name = parts[3],
+                    TeacherId = parts[4],
+                    StudentIds = oldCourse.StudentIds
+                };
+
+                courseService.Update(updatedCourse);
+                Console.WriteLine("Course updated.");
+                continue;
+            }
+           
+
         }
     }
 }

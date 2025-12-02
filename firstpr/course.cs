@@ -7,6 +7,10 @@ public class Course
     public string TeacherId { get; set; }
 
     public List<string> StudentIds { get; set; }
+
+    public Course()
+    {
+    }
     public Course(string Id, string Name, string TeacherId, List<string> StudentIds)
     {
         this.Id = Id;
