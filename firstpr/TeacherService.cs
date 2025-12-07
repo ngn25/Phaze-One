@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using firstpr;
+using firstpr;   
 
 public class TeacherService
 {
@@ -7,21 +7,40 @@ public class TeacherService
 
     public TeacherService(ITeacherRepository repository)
     {
-        _repository = repository;
+        _repository = repository ?? new TeacherRepository();
     }
 
-    public TeacherService()
+    public void Add(Teacher teacher)
     {
-        _repository = new TeacherRepository();
+        if (string.IsNullOrEmpty(teacher.Id) || string.IsNullOrEmpty(teacher.Name))
+            return;
+
+        _repository.Add(teacher); 
     }
 
-    public void Add(Teacher teacher) => _repository.Add(teacher);
+    public Teacher GetById(string Id)
+    {
+        return _repository.GetById(Id); 
+    }
 
-    public Teacher GetById(string Id) => _repository.GetById(Id);
+    public List<Teacher> GetAll()
+    {
+        return _repository.GetAll(); 
+    }
 
-    public List<Teacher> GetAll() => _repository.GetAll();
+    public void Update(Teacher teacher)
+    {
+        if (string.IsNullOrEmpty(teacher.Id) || string.IsNullOrEmpty(teacher.Name))
+            return;
 
-    public void Update(Teacher teacher) => _repository.Update(teacher);
+        _repository.Update(teacher); 
+    }
 
-    public void DeleteById(string Id) => _repository.Delete(Id);
+    public void DeleteById(string Id)
+    {
+        if (string.IsNullOrEmpty(Id))
+            return;
+
+        _repository.Delete(Id); 
+    }
 }
