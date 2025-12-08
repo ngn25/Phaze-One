@@ -25,9 +25,8 @@ namespace firstpr
                     StudentIds = new List<string>()
                 });
             }
-            reader.Close(); // مهمه!
+            reader.Close();
 
-            // 2. دانشجوهای هر درس رو بخون
             using var cmd2 = new SqlCommand("SELECT CourseId, StudentId FROM CourseStudents", conn);
             using var reader2 = cmd2.ExecuteReader();
 
@@ -81,7 +80,6 @@ namespace firstpr
             using var conn = DatabaseConnection.GetConnection();
             conn.Open();
 
-            // 1. درس رو اضافه کن
             using var cmd = new SqlCommand(@"INSERT INTO Courses (Id, Name, TeacherId) 
                                             VALUES (@Id, @Name, @TeacherId)", conn);
             cmd.Parameters.AddWithValue("@Id", course.Id);
@@ -89,7 +87,6 @@ namespace firstpr
             cmd.Parameters.AddWithValue("@TeacherId", course.TeacherId ?? (object)DBNull.Value);
             cmd.ExecuteNonQuery();
 
-            // 2. دانشجوها رو ثبت‌نام کن
             foreach (var sid in course.StudentIds)
             {
                 using var cmd2 = new SqlCommand(@"INSERT INTO CourseStudents (CourseId, StudentId) 
@@ -105,19 +102,17 @@ namespace firstpr
             using var conn = DatabaseConnection.GetConnection();
             conn.Open();
 
-            // 1. درس رو آپدیت کن
             using var cmd = new SqlCommand(@"UPDATE Courses SET Name = @Name, TeacherId = @TeacherId WHERE Id = @Id", conn);
             cmd.Parameters.AddWithValue("@Id", course.Id);
             cmd.Parameters.AddWithValue("@Name", course.Name);
             cmd.Parameters.AddWithValue("@TeacherId", course.TeacherId ?? (object)DBNull.Value);
             cmd.ExecuteNonQuery();
 
-            // 2. ثبت‌نام‌های قبلی رو پاک کن
             using var cmdDel = new SqlCommand("DELETE FROM CourseStudents WHERE CourseId = @Id", conn);
             cmdDel.Parameters.AddWithValue("@Id", course.Id);
             cmdDel.ExecuteNonQuery();
 
-            // 3. دانشجوهای جدید رو اضافه کن
+
             foreach (var sid in course.StudentIds)
             {
                 using var cmd2 = new SqlCommand(@"INSERT INTO CourseStudents (CourseId, StudentId) 
@@ -133,10 +128,13 @@ namespace firstpr
             using var conn = DatabaseConnection.GetConnection();
             conn.Open();
 
-            // CourseStudents به خاطر ON DELETE CASCADE خودکار پاک می‌شه
-            using var cmd = new SqlCommand("DELETE FROM Courses WHERE Id = @Id", conn);
-            cmd.Parameters.AddWithValue("@Id", id);
-            cmd.ExecuteNonQuery();
+            using var cmd1 = new SqlCommand("DELETE FROM CourseStudents WHERE CourseId = @Id", conn);
+            cmd1.Parameters.AddWithValue("@Id", id);
+            cmd1.ExecuteNonQuery();
+
+            using var cmd2 = new SqlCommand("DELETE FROM Courses WHERE Id = @Id", conn);
+            cmd2.Parameters.AddWithValue("@Id", id);
+            cmd2.ExecuteNonQuery();
         }
     }
 }

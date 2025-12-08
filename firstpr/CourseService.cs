@@ -19,14 +19,12 @@ namespace firstpr
 
         public void Add(Course course)
         {
-            // چک درس تکراری نباشه
             if (_repository.GetById(course.Id) != null)
             {
                 Console.WriteLine($"Error: Course with id '{course.Id}' already exists!");
                 return;
             }
 
-            // چک استاد وجود داشته باشه
             var teacher = _teacherService.GetById(course.TeacherId);
             if (teacher == null)
             {
@@ -34,7 +32,6 @@ namespace firstpr
                 return;
             }
 
-            // چک همه دانشجوها وجود داشته باشن
             var missingStudents = course.StudentIds
                 .Where(sid => _studentService.GetById(sid) == null)
                 .ToList();
@@ -51,14 +48,12 @@ namespace firstpr
 
         public void Update(Course course)
         {
-            // چک کن درس وجود داشته باشه
             if (_repository.GetById(course.Id) == null)
             {
                 Console.WriteLine($"Error: Course with id '{course.Id}' not found!");
                 return;
             }
 
-            // چک کن استاد وجود داشته باشه
             var teacher = _teacherService.GetById(course.TeacherId);
             if (teacher == null)
             {
@@ -66,7 +61,6 @@ namespace firstpr
                 return;
             }
 
-            // چک کن همه دانشجوها وجود داشته باشن
             var missingStudents = course.StudentIds
                 .Where(sid => _studentService.GetById(sid) == null)
                 .ToList();
@@ -103,7 +97,6 @@ namespace firstpr
             Console.WriteLine("Course removed successfully.");
         }
 
-        // برای دسترسی مستقیم به ریپازیتوری (در صورت نیاز)
         public ICourseRepository GetRepository() => _repository;
     }
 }
