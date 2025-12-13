@@ -1,39 +1,39 @@
 -- 1. Teachers
 INSERT INTO Teachers (Id, Name, Email, PhoneNumber)
 VALUES 
-    ('T001', 'Dr. Alexander Harris', 'alexander.harris@school.edu', '555-1101'),
-    ('T002', 'Prof. Isabella Martinez', 'isabella.martinez@school.edu', '555-1102'),
-    ('T003', 'Mr. James Wilson', 'james.wilson@school.edu', '555-1103'),
-    ('T004', 'Dr. Sophia Anderson', 'sophia.anderson@school.edu', '555-1104'),
-    ('T005', 'Ms. Benjamin Thomas', 'benjamin.thomas@school.edu', NULL),
-    ('T006', 'Prof. Olivia Jackson', 'olivia.jackson@school.edu', '555-1106'),
-    ('T007', 'Dr. William White', 'william.white@school.edu', '555-1107'),
-    ('T008', 'Mrs. Charlotte Lee', 'charlotte.lee@school.edu', '555-1108'),
-    ('T009', 'Mr. Daniel Clark', 'daniel.clark@school.edu', NULL),
-    ('T010', 'Prof. Amelia Lewis', 'amelia.lewis@school.edu', '555-1110');
+    ('T001', 'DrAlexander Harris', 'alexander.harris@school.edu', '555-1101'),
+    ('T002', 'ProfIsabellaMartinez', 'isabella.martinez@school.edu', '555-1102'),
+    ('T003', 'MrJamesWilson', 'james.wilson@school.edu', '555-1103'),
+    ('T004', 'DrSophiaAnderson', 'sophia.anderson@school.edu', '555-1104'),
+    ('T005', 'MsBenjaminThomas', 'benjamin.thomas@school.edu', NULL),
+    ('T006', 'ProfOliviaJackson', 'olivia.jackson@school.edu', '555-1106'),
+    ('T007', 'DrWilliamWhite', 'william.white@school.edu', '555-1107'),
+    ('T008', 'MrsCharlotteLee', 'charlotte.lee@school.edu', '555-1108'),
+    ('T009', 'MrDanielClark', 'daniel.clark@school.edu', NULL),
+    ('T010', 'ProfAmeliaLewis', 'amelia.lewis@school.edu', '555-1110');
 
 -- 2. Students
 INSERT INTO Students (Id, Name, DateOfBirth, Email, PhoneNumber)
 VALUES 
-    ('S001', 'Emma Johnson', '2006-03-15', 'emma.j@student.com', '555-2001'),
-    ('S002', 'Liam Smith', '2005-07-22', 'liam.s@student.com', '555-2002'),
-    ('S003', 'Noah Williams', '2007-01-10', 'noah.w@student.com', NULL),
-    ('S004', 'Olivia Brown', '2006-09-05', 'olivia.b@student.com', '555-2004'),
-    ('S005', 'Ethan Jones', '2005-11-30', 'ethan.j@student.com', '555-2005'),
-    ('S006', 'Ava Garcia', '2007-04-18', 'ava.g@student.com', '555-2006'),
-    ('S007', 'Sophia Miller', '2006-06-25', 'sophia.m@student.com', NULL),
-    ('S008', 'Mason Davis', '2005-12-12', 'mason.d@student.com', '555-2008'),
-    ('S009', 'Isabella Rodriguez', '2007-08-08', 'isabella.r@student.com', '555-2009'),
-    ('S010', 'Lucas Martinez', '2006-10-20', 'lucas.m@student.com', '555-2010');
+    ('S001', 'EmmaJohnson', '2006-03-15', 'emma.j@student.com', '555-2001'),
+    ('S002', 'LiamSmith', '2005-07-22', 'liam.s@student.com', '555-2002'),
+    ('S003', 'NoahWilliams', '2007-01-10', 'noah.w@student.com', NULL),
+    ('S004', 'OliviaBrown', '2006-09-05', 'olivia.b@student.com', '555-2004'),
+    ('S005', 'EthanJones', '2005-11-30', 'ethan.j@student.com', '555-2005'),
+    ('S006', 'AvaGarcia', '2007-04-18', 'ava.g@student.com', '555-2006'),
+    ('S007', 'SophiaMiller', '2006-06-25', 'sophia.m@student.com', NULL),
+    ('S008', 'MasonDavis', '2005-12-12', 'mason.d@student.com', '555-2008'),
+    ('S009', 'IsabellaRodriguez', '2007-08-08', 'isabella.r@student.com', '555-2009'),
+    ('S010', 'LucasMartinez', '2006-10-20', 'lucas.m@student.com', '555-2010');
 
 
 INSERT INTO Courses (Id, Name, TeacherId)
 VALUES 
-    ('MATH301', 'Calculus III', 'T001'),
-    ('PHYS201', 'Physics II', 'T003'),
-    ('CS101', 'Introduction to Programming', 'T004'),
-    ('CHEM202', 'Organic Chemistry', 'T006'),
-    ('HIST101', 'World History', 'T008');
+    ('MATH301', 'CalculusIII', 'T001'),
+    ('PHYS201', 'PhysicsII', 'T003'),
+    ('CS101', 'IntroductiontoProgramming', 'T004'),
+    ('CHEM202', 'OrganicChemistry', 'T006'),
+    ('HIST101', 'WorldHistory', 'T008');
 
 INSERT INTO CourseStudents (CourseId, StudentId)
 VALUES 
